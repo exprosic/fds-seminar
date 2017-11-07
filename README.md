@@ -32,12 +32,10 @@ For more details see [GitHub Flavored Markdown](https://guides.github.com/featur
 
 Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/exprosic/fds-seminar/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
 
-```ruby
-def print_hi(name)
-  puts "Hi, #{name}"
-end
-print_hi('Tom')
-#=> prints 'Hi, Tom' to STDOUT.
+```isabelle
+val 3
+term 5
+datatype a = A nat
 ```
 
 ### Support or Contact
