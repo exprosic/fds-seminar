@@ -53,7 +53,7 @@ which is effectively a "functional pointer". By changing its second component, w
 
 ```isabelle
 fun focus_down :: "'a tree_focus => 'a tree_focus" where
-  "focus_down (zipper, Node root (first_subtree # rest_subtrees)) =
+  "focus_down (current_zipper, Node root (first_subtree # rest_subtrees)) =
   	let zipper_down = (Teeth [] root rest_subtrees current_zipper) in
       (zipper_down, first_subtree)"
 
