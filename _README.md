@@ -4,7 +4,7 @@
 
 ## Abstraction
 
-Zipper is a programming technique for 'modifying' the immutable variables of algebraic datatype like List and Tree, which are basic components to most functional programming languages. It models 'modification' of some part as the composition of its context and its replacement. Zipper, or context of algebraic datatype in general, is surprisingly similar with derivatives in calculus. This similarity can be partially explained in the context of combinatorial species.
+Zipper is a data structure for 'modifying' the immutable variables of algebraic datatype like List and Tree, which are basic components to most functional programming languages. It models 'modification' of some part as the composition of its context and its replacement. Zipper, or context of algebraic datatype in general, is surprisingly similar with derivatives in calculus. This similarity can be partially explained in the context of combinatorial species.
 
 ## Zipper
 
