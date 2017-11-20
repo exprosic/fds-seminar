@@ -1,4 +1,4 @@
-# Zippers and the Algebra of Algebraic Data Types
+# Zippers and the Algebra of Algebraic Datatypes
 
 [TOC]
 
