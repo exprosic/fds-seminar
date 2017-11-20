@@ -165,7 +165,7 @@ Two subtleties here:
 
 Now we can define the context type inductively on sum, product, composition, least fix-point and basic types. Here I try not to formalize the derivation into esoteric formulas but to rather illustrate its meaning and correctness based on its interpretation as a datatype and to abbreviate the notation whenever unambiguous.  For those who prefer formalized arguments, please refer to McBride's original paper.
 
-Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_zipper`, `list_zipper` and `list_zipper2` would then be written as $C[tree](tree)$, $C[list](list)$ and $C[a](list)$.
+Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_zipper`, `list_context` and `list_context2` would then be written as $C[tree](tree)$, $C[list](list)$ and $C[a](list)$.
 
 - For a type $f + g$, the  hole must occur in either of them, which means the context type of sum is the sum of context types:
 
