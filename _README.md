@@ -214,7 +214,7 @@ Let us try to derive $\frac{\partial}{\partial L}L$ where $L$ stands for list :
 $$
 \begin{eqnarray}
 \frac{\partial}{\partial L}L &=& 1 +\frac{\partial}{\partial L}(1 + a * L)\\
-    &=& 1 + \frac{\partial}{\partial L}1 + \frac{\partial}{\partial L}L
+    &=& 1 + \frac{\partial}{\partial L}1 + \frac{\partial}{\partial L}(a*L)
 \end{eqnarray}
 $$
 
