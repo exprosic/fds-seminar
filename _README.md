@@ -290,11 +290,12 @@ fun move_down :: "('a tree_deriv * 'a tree) => ('a tree_deriv * 'a tree)" where
 ```
 
 It remains a question whether it is possible to construct a derivative like `tree_zipper` for all datatypes where a "reversed path" helps moving around efficiently. The answer is yes, since the derivative of a least fix-points always contains such a path. Suppose a least fix-point is defined by $g(x) = f(x, g(x))$, then it's derivative is:
+
 $$
 \begin{eqnarray}
 \frac{\partial}{\partial x}(g(x)) &=& \frac{\partial}{\partial x}(f(x, g(x))) \\
-&=& \frac{\partial}{\partial x}(f(x, g)) + \frac{\partial}{\partial g}(f(x, g)) * \frac{\partial}{\partial x}(g(x)) \\
-&\simeq& \frac{\partial}{\partial x}(f(x, g)) * L(\frac{\partial}{\partial g}(f(x, g)))
+&=& \frac{\partial}{\partial x}(f(x; g)) + \frac{\partial}{\partial g}(f(g; x)) * \frac{\partial}{\partial x}(g(x)) \\
+&\simeq& \frac{\partial}{\partial x}(f(x; g)) * L(\frac{\partial}{\partial g}(f(g; x)))
 \end{eqnarray}
 $$
 
