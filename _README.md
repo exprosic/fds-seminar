@@ -80,7 +80,7 @@ For simplicity, impossible operations (like `focus_down` of Leaf) are left undef
 
 ### Zipper for List
 
-Zipper, interpreted as a datatype of context in general, can also be defined for List. The context of a sub-list (sub-term of the list, aka. suffix) is its preceding prefix, which is reversed here for efficiency:
+Zipper, interpreted as a datatype of context in general, can also be defined for List. The context of a sub-list (sub-term of the list, aka. suffix) is its preceding prefix, which is reversed here to accelerate the operations:
 
 ```isabelle
 type_synonym 'a list_context = 'a list  (* represents a reversed prefix *)
