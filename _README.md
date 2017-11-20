@@ -159,7 +159,7 @@ Two subtleties here:
 - First, unlike the commonly used $0$ in algebra, the "zero type", i.e. a type that accepts no value, is rarely used in programming since there is no usual way to declare it, but during a paper experiment, it sometimes helps constructing intermediate results, as we will see in following sections. It behaves like zero in algebra, which disappears in a sum and absorbs all others in a product.
 - Second, $list(x) = 1 + list(x)$ is strictly speaking not a definition, but it indicates a least fix-point of $f(x) = 1+f(x)$, which means the smallest type satisfying $x=f(x)$. The type of all finite lists and the type of all possibly infinite lists are both valid fix-points here, but the smallest one is the former. The latter, aka. the greatest fix-point, is also widely used in real-world functional programming as in Haskell, but at the moment let us focus on the least fix-point.
 
-## Context of algebraic datatype
+### Inductive Definition
 
 Now we can define the context type inductively on sum, product, composition, least fix-point and basic types. Here I try not to formalize the derivation into esoteric formulas but to rather illustrate its meaning and correctness based on its interpretation as a datatype and to abbreviate the notation whenever unambiguous.  For those who prefer formalized arguments, please refer to McBride's original paper.
 
