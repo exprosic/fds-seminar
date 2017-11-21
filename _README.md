@@ -175,11 +175,21 @@ Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_
 
   ​	$$C[a](f*g) = C[a](f) * g + f * C[a](g)$$.
 
-- For a datatype $f(g(a))$ such as $list(tree(a))$, $a$ occurs either in $g$ which is parameterized by $f$, or in $f$ directly. If it occurs in a $g$, it can be located by first finding this $g$ in $f$ and then finding the $a$ in this $g$; If it occurs directly in f, then we can treat $g$ as a constant. Put into formula, 
+- For a datatype $f(g(a))$ such as $list(tree(a))$, $a$ occurs in $g$ which occurs in $f$. It can be located by first finding the $g$ in $f$ and then finding the $a$ in this $g$. Put into formula, 
 
-  ​	$$C[a](f(g(a))) = C[a](f(a;g)) + C[g](f(g;a)) * C[a](g)$$ 
+  ​	$$C[a](f(g(a))) = C[g](f(g)) * C[a](g)$$ 
 
-- For a recursive datatype $g(a) = f(a, g(a))$ such as $list(a) = 1 + a * list(a)$, we can derive context types on both sides and treat the resulting equation as an implicitly defined least fix-point of the context type. But be careful when you try to derive the context of a recursive type in it self like $C[list](list)$:  apart from the possibility that the hole of a list occurs inside a list, it is possible that the current list is itself a hole, which gives an extra $1$. For example,
+  Similarly, for a datatype with two parameters $f(g(a), h(a))$,
+
+   	$$C[a](f(g(a), h(a))) = C[g](f(g;h(a)))*C[a](g) + C[h](f(h;g(a)))*C[a](h)$$
+
+  where semicolon means fixing the parameters after it.
+
+- For a recursive datatype $g(a) = f(a, g(a))$ such as $list(a) = 1 + a * list(a)$, we can derive context types on both sides using the previous rule
+
+  ​	$$\begin{eqnarray} C[a](g(a)) &=& C[a](f(a, g(a)) \\&=& C[a](f(a;g(a))*C[a](a) + C[g](f(g;a))*C[a](g)\end{eqnarray}$$
+
+  and treat the resulting equation as an implicitly defined least fix-point of the context type. But be careful when you try to derive the context of a recursive type in it self like $C[list](list)$:  apart from the possibility that the hole of a list occurs inside a list, it is possible that the current list is itself a hole, which gives an extra $1$. For example,
 
   ​	$$C[list](list) = 1 + C[list](1 + x * list)$$
 
@@ -200,7 +210,8 @@ $$
 \begin{eqnarray}
 (f+g)'(x) &=& f'(x) + g'(x) \\
 (f*g)'(x) &=& f'(x)*g(x) + f(x)*g'(x) \\
-\frac{\partial}{\partial x}(f(x, g(x))) &=& \frac{\partial}{\partial x}(f(x, g)) + \frac{\partial}{\partial g}(f(x, g)) * \frac{\partial}{\partial x}(g(x)) \\
+(f \circ g)'(x) &=& f'(g(x))*g'(x) \\
+\frac{\partial}{\partial x}(f(g(x), h(x)) &=& \frac{\partial}{\partial g}(f(g, h))*\frac{\partial}{\partial x}g + \frac{\partial}{\partial h}(f(g, h))*\frac{\partial}{\partial x}h \\
 1' &=& 0 \\
 x' &=& 1
 \end{eqnarray}
@@ -282,7 +293,7 @@ and moving such `tree_deriv` would require going through the whole path:
 
 ```
 fun move_down :: "('a tree_deriv * 'a tree) => ('a tree_deriv * 'a tree)" where
-  "move_down (Top, Node v (c0#children)) =
+  "move_down (Here, Node v (c0#children)) =
     (Inside v [] children Top, c0)"
 | "move_down (Inside root left right inside, t) = 
     let (inside2, t2) = (move_down inside t) in
@@ -331,7 +342,7 @@ We can also define the derivative $f'(X)$ for a species $f(X)$. $f'(X)$ accepts 
 
 ### Exponential Generating Function
 
-One can prove inductively that all the inductively defined species is equivalent with a possibly infinite sum of powers of $X$. For each $X^n$, which accepts n values, there are $n!$ possibilities, which implies that the expression for a species can also be interpreted as an exponential generating function (EGF). Take list as an example, $f(X) = 1 + X + X^2 + \dots$ can be interpreted as $f(x) = 1 + 1!*\frac{x}{1!} + 2!*\frac{x^2}{2!} + ...$, which means that $f(X)$ has $1$ way of accepting empty set, $1!$ way for set of size $1$, $2!$ ways for set of size 2, etc.. Besides, operations (sum, product, etc.) on species results in isomorphic EGFs. Below are the cases for products and derivatives:
+One can prove inductively that all the inductively defined species is equivalent with a possibly infinite sum of powers of $X$. For each $X^n$, which accepts n labels, there are $n!$ ways of acceptance, which implies that the expression for a species can also be interpreted as an exponential generating function (EGF). Take list as an example, $f(X) = 1 + X + X^2 + \dots$ can be interpreted as $f(x) = 1 + 1!*\frac{x}{1!} + 2!*\frac{x^2}{2!} + ...$, which means that $f(X)$ has $1$ way of accepting empty set, $1!$ way for set of size $1$, $2!$ ways for set of size 2, etc.. Besides, operations (sum, product, etc.) on species results in isomorphic EGFs. Below are the cases for products and derivatives:
 
 - Recall that a product of species $f(X)*g(X)$ accepts label sets of size $n$ by first dividing it into two sets of size $m$ and size $n-m$, then let $f(X)$ accepts those $m$ labels and $g(X)$ accepts the rest. If we note the number of possibilities by $f_m$ and $g_{n-m}$ respectively, then there are $\Sigma_{m=0}^{n}C(n,m)*f_m*g_{n-m}$ possibilities overall.  This is also the coefficient of term $x^n$ in the product of two EGFs $f(x)*g(x)$, which means that the EGF for species $f(X)*g(X)$ is $f(x)*g(x)$. 
 - Recall that $(X^n)' = n * X^{n-1}$. Therefore, for a species with EGF $f(x) = 1 + f_1*\frac{x}{1!} + f_2*\frac{x^2}{2!} + ...$, its species derivative $f'(X)$ has EGF $f_1 + f_2*\frac{x}{1!} + f_3*\frac{x^2}{2!}...$, which is exactly $f'(x)$.
