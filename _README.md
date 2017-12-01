@@ -150,22 +150,22 @@ datatype 'a list =
 | Cons 'a "'a list"
 ```
 
-Here `|` indicates a sum type of both sides. `Nil` and `Cons` are just insignificant case names of whatever follows them. Following `Nil` is an implicit `()::unit`, while following Cons is a product of `'a` and `'a list`. Therefore `datatype 'a list` can be transcribed as $list(a) = 1 + a * list(a)$. In spite of the loss of semantical interpretation due to the lack of case names, $list(a)$ is structurally the same as `datatype 'a list`: it is either of a $1$, or a pair of an element $a$ and another $list(a)$.
+Here `|` indicates a sum type of both sides. `Nil` and `Cons` are just insignificant case names of whatever follows them. Following `Nil` is an implicit `()::unit`, while following Cons is a product of `'a` and `'a list`. Therefore `datatype 'a list` can be transcribed as $\textit{list}(a) = 1 + a \times \textit{list}(a)$. In spite of the loss of semantical interpretation due to the lack of case names, $\textit{list}(a)$ is structurally the same as `datatype 'a list`: it is either of a $1$, or a pair of an element $a$ and another $\textit{list}(a)$.
 
 Algebraic datatype follows many common algebraic laws. A minimal example of distribution law would be $(1+1)*a = a + a$, which can be rephrased as: `type_synonym 'a lr2 = bool * 'a` is *isomorphic* with  `datatype 'a lr = L 'a | R 'a`.
 
-Algebraic datatype can also be composed like $list(tree(a))$, which stands for `'a tree list` in Isabelle.
+Algebraic datatype can also be composed like $\textit{list}(\textit{tree}(a))$, which stands for `'a tree list` in Isabelle.
 
 Two subtleties here:
 
 - First, unlike the commonly used $0$ in algebra, the "zero type", i.e. a type that accepts no value, is rarely used in programming since there is no usual way to declare it, but during a paper experiment, it sometimes helps constructing intermediate results, as we will see in following sections. It behaves like zero in algebra, which disappears in a sum and absorbs all others in a product.
-- Second, $list(x) = 1 + list(x)$ is strictly speaking not a definition, but it indicates a least fix-point of $f(x) = 1+f(x)$, which means the smallest type satisfying $x=f(x)$. The type of all finite lists and the type of all possibly infinite lists are both valid fix-points here, but the smallest one is the former. The latter, aka. the greatest fix-point, is also widely used in real-world functional programming as in Haskell, but at the moment let us focus on the least fix-point.
+- Second, $\text{list}(x) = 1 + \textit{list}(x)$ is strictly speaking not a definition, but it indicates a least fix-point of $f(x) = 1+f(x)$, which means the smallest type satisfying $x=f(x)$. The type of all finite lists and the type of all possibly infinite lists are both valid fix-points here, but the smallest one is the former. The latter, aka. the greatest fix-point, is also widely used in real-world functional programming as in Haskell, but at the moment let us focus on the least fix-point.
 
 ### Inductive Definition
 
 Now we can define the context type inductively on sum, product, composition, least fix-point and basic types. Here I try not to formalize the derivation into esoteric formulas but to rather illustrate its meaning and correctness based on its interpretation as a datatype and to abbreviate the notation whenever unambiguous.  For those who prefer formalized arguments, please refer to McBride's original paper.
 
-Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_zipper`, `list_context` and `list_context2` would then be written as $C[tree](tree)$, $C[list](list)$ and $C[a](list)$.
+Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_zipper`, `list_context` and `list_context2` would then be written as $C[\textit{tree}](\textit{tree})$, $C[\textit{list}](\textit{list})$ and $C[a](\textit{list})$.
 
 - For a type $f + g$, the  hole must occur in either of them, which means the context type of sum is the sum of context types:
 
@@ -175,7 +175,7 @@ Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_
 
   ​	$$C[a](f*g) = C[a](f) * g + f * C[a](g)$$.
 
-- For a datatype $f(g(a))$ such as $list(tree(a))$, $a$ occurs in $g$ which occurs in $f$. It can be located by first finding the $g$ in $f$ and then finding the $a$ in this $g$. Put into formula, 
+- For a datatype $f(g(a))$ such as $\textit{list}(\textit{tree}(a))$, $a$ occurs in $g$ which occurs in $f$. It can be located by first finding the $g$ in $f$ and then finding the $a$ in this $g$. Put into formula, 
 
   ​	$$C[a](f(g(a))) = C[g](f(g)) * C[a](g)$$ 
 
@@ -185,13 +185,13 @@ Let us note a context (or a *hole*) of type $a$ in type $X$ by $C[a](X)$. `tree_
 
   where semicolon means fixing the parameters after it.
 
-- For a recursive datatype $g(a) = f(a, g(a))$ such as $list(a) = 1 + a * list(a)$, we can derive context types on both sides using the previous rule
+- For a recursive datatype $g(a) = f(a, g(a))$ such as $\textit{list}(a) = 1 + a * \textit{list}(a)$, we can derive context types on both sides using the previous rule
 
   ​	$$\begin{eqnarray} C[a](g(a)) &=& C[a](f(a, g(a)) \\&=& C[a](f(a;g(a))*C[a](a) + C[g](f(g;a))*C[a](g)\end{eqnarray}$$
 
-  and treat the resulting equation as an implicitly defined least fix-point of the context type. But be careful when you try to derive the context of a recursive type in it self like $C[list](list)$:  apart from the possibility that the hole of a list occurs inside a list, it is possible that the current list is itself a hole, which gives an extra $1$. For example,
+  and treat the resulting equation as an implicitly defined least fix-point of the context type. But be careful when you try to derive the context of a recursive type in it self like $C[\textit{list}](\textit{list})$:  apart from the possibility that the hole of a list occurs inside a list, it is possible that the current list is itself a hole, which gives an extra $1$. For example,
 
-  ​	$$C[list](list) = 1 + C[list](1 + x * list)$$
+  ​	$$C[\textit{list}](\textit{list}) = 1 + C[\textit{list}](1 + x * \textit{list})$$
 
   where the left-most $1$ is the extra $1$ that represents such possibility. This special case may be eliminated by a likely lengthy formalization, but for now let us take the quick and dirty way.
 
