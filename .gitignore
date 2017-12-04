@@ -1,2 +1,11 @@
 *.pdf
 fabio
+
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
