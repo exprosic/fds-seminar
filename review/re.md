@@ -13,7 +13,7 @@
   - Explicit type annotations might be helpful here, since otherwise readers have to do type inference in mind after locating a possible starting point.
   - Since this lemma is the foundation of all following sections, it deserves a bit more explanation in plain text. Otherwise, the reader (like myself) might ignore a few simple yet important facts. For example, `shows K0 = L0` is directly related to the very equivalence that the paper is all about, and the lemma is a coinduction rule for such equivalence, instead of some auxiliary congruence rule.
 - `nderiv` is a variant of `deriv`, explained below.
-  - might better tell the reader that to what extent can they be treated the same, so that the validity of the arguments is not affected by this variance before it is explained pages below.
+  - might better tell the reader that to what extent they can be treated the same, so that the validity of the arguments is not affected by this variance before it is explained pages below.
 - ... given `as` and `ps`, it tests whether the REs in `ps` contain only atoms in `as` ...
   - Why does this matter for a certificate checker?
 - However, it turns out we can iteratively construct `ps` using the same idea, such that the termination the while-loop already guarantees the premises of `bisim-lang-eq`.
