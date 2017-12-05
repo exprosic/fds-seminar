@@ -257,5 +257,44 @@ Zipper!
 
 %%%% begin [tree] %%%%
 \begin{frame}[fragile]
+\frametitle{Huet's Zipper}
 
+\newcommand{\AS}[1]{\textcolor{red}{#1}}
+\newcommand{\AL}[1]{\textcolor{blue}{#1}}
+
+\begin{itemize}
+\item For ordered trees with \AL{payload only on leaves}:
+
+\begin{itemize}
+\item
+\begin{lstlisting}
+'a tree = <@\AL{Leaf 'a}@> | Node <@\AL{\sout{'a}}@> ('a tree list)
+\end{lstlisting}
+\end{itemize}
+
+\item Focus on a \AS{subtree} instead of an element
+
+\begin{itemize}
+\item
+\begin{lstlisting}
+'a tree_pointer = <@\AS{\sout{'a} \underline{'a tree}}@> * 'a tree_context
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+'a tree_context = <@\AS{\sout{'a tree list *}}@> 'a tree_ancestors
+\end{lstlisting}
+
+\item 
+\begin{lstlisting}
+'a tree_ancestors =
+    Top
+  | IsChild ('a tree list) <@\AL{\sout{'a}}@> ('a tree list)
+            ('a tree_ancestors)
+\end{lstlisting}
+
+\end{itemize} 
+
+\end{itemize}
 \end{frame}
+
