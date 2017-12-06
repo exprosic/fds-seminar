@@ -2,12 +2,12 @@
 
 %%%% begin [list] %%%%
 \begin{frame}[fragile, allowframebreaks]
-\frametitle{Zipper for List}
+\frametitle{Context for List}
 
 \begin{itemize}
 \item \lstinline.datatype 'a list = Nil | Cons 'a ('a list).
 
-\item How to define a "pointer" \lstinline|p| into a list \lstinline|l|, supporting:
+\item How to define a ``pointer'' \lstinline|p| into a list \lstinline|l|, supporting:
 \begin{itemize}
 	\item \lstinline|p = begin(l)|
 	\item \lstinline|p->prev|
@@ -20,7 +20,7 @@
 
 \begin{itemize}
 \newcommand{\AL}[1]{\textcolor{red}{#1}}
-\newcommand{\AM}[1]{\textcolor{green}{#1}}
+\newcommand{\AM}[1]{\textcolor[RGB]{0,170,0}{#1}}
 \newcommand{\AR}[1]{\textcolor{blue}{#1}}
 \item
 \begin{lstlisting}
@@ -66,35 +66,36 @@
 
 %%%% begin [btree] %%%%
 \begin{frame}[fragile]
-\frametitle{Zipper for Binary Tree I}
+\frametitle{Context for Binary Tree I}
+
+\newcommand{\AX}[1]{\textcolor{red}{#1}}
+\newcommand{\AC}[1]{\textcolor{blue}{#1}}
+\newcommand{\AL}[1]{\textcolor[RGB]{0,170,0}{#1}}
+\newcommand{\AR}[1]{\textcolor{cyan}{#1}}
+\newcommand{\AT}[1]{\textcolor{gray}{#1}}
 
 \begin{itemize}
 \item \lstinline.'a btree = Leaf | Node 'a ('a btree) ('a btree).
 
 \item
 \begin{lstlisting}
-'a btree_pointer = <@\textcolor{red}{'a}@> * 'a btree_context
+'a btree_pointer = <@\AX{'a}@> * 'a btree_context
 \end{lstlisting}
 
 \item
 \begin{lstlisting}
-'a btree_context = <@\textcolor{blue}{'a btree * 'a btree}@>
-                 * 'a btree_ancestors
+'a btree_context = <@\AC{'a btree * 'a btree}@>
+                   * 'a btree_ancestors
 \end{lstlisting}
 
 \item
 \begin{lstlisting}
 'a btree_ancestors =
-    <@\textcolor{gray}{Top}@>
-  | <@\textcolor{green}{IsLeft}@>  'a ('a btree) ('a btree_ancestors)
-  | <@\textcolor {cyan}{IsRight}@> 'a ('a btree) ('a btree_ancestors)
+    <@\AT{Top}@>
+  | <@\AL{IsLeft}@>  'a ('a btree) ('a btree_ancestors)
+  | <@\AR{IsRight}@> 'a ('a btree) ('a btree_ancestors)
 \end{lstlisting}
 
-\newcommand{\AX}[1]{\textcolor{red}{#1}}
-\newcommand{\AC}[1]{\textcolor{blue}{#1}}
-\newcommand{\AL}[1]{\textcolor{green}{#1}}
-\newcommand{\AR}[1]{\textcolor{cyan}{#1}}
-\newcommand{\AT}[1]{\textcolor{gray}{#1}}
 \begin{itemize}
 	\item
 \begin{onlyenv}<+>
@@ -155,11 +156,11 @@
 
 %%%% begin [tree 2] %%%%
 \begin{frame}[fragile]
-\frametitle{Zipper for Binary Tree II}
+\frametitle{Context for Binary Tree II}
 
 \newcommand{\AX}[1]{\textcolor{red}{#1}}
 \newcommand{\AC}[1]{\textcolor{blue}{#1}}
-\newcommand{\AL}[1]{\textcolor{green}{#1}}
+\newcommand{\AL}[1]{\textcolor[RGB]{0,170,0}{#1}}
 \newcommand{\AR}[1]{\textcolor{cyan}{#1}}
 \newcommand{\AT}[1]{\textcolor{gray}{#1}}
 
@@ -194,7 +195,7 @@
 
 %%%% begin [tree] %%%%
 \begin{frame}[fragile, allowframebreaks]
-\frametitle{Zipper for Ordered Tree}
+\frametitle{Context for Ordered Tree}
 
 \begin{itemize}
 \item
@@ -235,7 +236,7 @@ Equivalent type definition:\\
 
 \framebreak
 
-Zipper!
+Zipper!\footnote[frame]{Image source: www.pacifictrimming.com}
 
 \begin{columns}
 \begin{column}{0.75\textwidth}
@@ -246,7 +247,6 @@ Zipper!
 \end{column}
 \begin{column}{0.3\textwidth}
 \begin{figure}
-\centering
 \includegraphics[width=0.7\textwidth]{figure/real_zipper}
 \end{figure}
 \end{column}
@@ -268,7 +268,7 @@ Zipper!
 \begin{itemize}
 \item
 \begin{lstlisting}
-'a tree = <@\AL{Leaf 'a}@> | Node <@\AL{\sout{'a}}@> ('a tree list)
+'a ltree = <@\AL{Leaf 'a}@> | Node <@\AL{\st{'a}}@> ('a ltree list)
 \end{lstlisting}
 \end{itemize}
 
@@ -277,20 +277,20 @@ Zipper!
 \begin{itemize}
 \item
 \begin{lstlisting}
-'a tree_pointer = <@\AS{\sout{'a} \underline{'a tree}}@> * 'a tree_context
+'a ltree_pointer = <@\AS{\st{'a} \underline{'a ltree}}@> * 'a ltree_context
 \end{lstlisting}
 
 \item 
 \begin{lstlisting}
-'a tree_context = <@\AS{\sout{'a tree list *}}@> 'a tree_ancestors
+'a ltree_context = <@\AS{\st{'a ltree list *}}@> 'a ltree_ancestors
 \end{lstlisting}
 
 \item 
 \begin{lstlisting}
-'a tree_ancestors =
+'a ltree_ancestors =
     Top
-  | IsChild ('a tree list) <@\AL{\sout{'a}}@> ('a tree list)
-            ('a tree_ancestors)
+  | IsChild ('a ltree list) <@\AL{\st{'a}}@> ('a ltree list)
+            ('a ltree_ancestors)
 \end{lstlisting}
 
 \end{itemize} 

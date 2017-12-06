@@ -1,0 +1,128 @@
+\section{Combinatorial Species}
+
+%%%% begin [species] %%%%
+\begin{frame}
+\frametitle{Species}
+
+\begin{itemize}
+\item General definition: endofunctor on the category of finite sets
+
+\item Map every finite set of ``labels'' to a set of its ``arrangements''
+
+\item Examples: $\{1, 2, 3\} \rightarrow$
+
+\begin{itemize}
+\item species of permutations:
+$\big\{(1,2,3), (1,3,2), (2,3,1), \dots\big\}$
+\item species of partitions:
+$\Big\{\big\{\{1\},\{2\},\{3\}\big\}, \big\{\{1\}, \{2,3\}\big\}, \cdots \Big\}$
+\item species of sets:
+$\big\{\{1,2,3\}\big\}$
+\item species of pairs:
+$\{\}$
+\end{itemize}
+
+\item Species, as functors, preserve identity arrow and composition of arrows
+\begin{itemize}
+\item should be obvious for \textit{regular} species
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%% end [species] %%%%
+
+%%%% begin [regular] %%%%
+\begin{frame}
+\frametitle{Regular Species}
+
+\begin{itemize}
+\item Composition of $0$, $1$, $X$, $+$, $\cdot$ and least fix-point
+\item $0$: $\{\dots\} \rightarrow \{\}$
+\item $1$: $\{\} \rightarrow \{\{\}\}$, otherwise $\{\}$
+\item $X$: $\{x\} \rightarrow \{\{x\}\}$, otherwise $\{\}$
+\item $F + G$: $S \rightarrow F(S) \sqcup G(S)$
+\item $F \cdot G$: $S \rightarrow \bigcup\limits_{S_1 \oplus S_2=L}(F(S_1) \times G(S_2))$
+\item $n \triangleq \underbrace{1 + (1 + (\ldots + 1))}_n$:
+$\{\} \rightarrow \{\{\}_1, \{\}_2, \ldots, \{\}_n\}$
+\item $X^n \triangleq \underbrace{X \cdot (X \cdot (\ldots \cdot X))}_n$:
+$\{1, 2, \ldots, n\} \rightarrow \{\text{permutations}\}$
+\item $L \triangleq 1 + X \cdot L = 1 + X \cdot (1 + X \cdot (\ldots)) \simeq 1 + X + X^2 + \ldots$
+\end{itemize}
+\end{frame}
+%%%% end [regular] %%%%
+
+%%%% begin [count] %%%%
+\begin{frame}
+\frametitle{Exponential Generating Function}
+
+\begin{itemize}
+\item Counting function: $C_F: |L| \rightarrow |F(L)|$ for species $F$
+\item Exponetial Generating Function: $E_F(x) = C_F(0) + C_F(1)*\frac{x}{1!} + C_F(2)*\frac{x^2}{2!} + \ldots$
+\item $E_0(x) = 0$
+\item $E_1(x) = 1$
+\item
+$\begin{aligned}[t]
+E_{F+G}(x) &= (C_F(0)+C_G(0)) + (C_f(1)+C_G(1))*\frac{x}{1!} + \ldots\\
+&= E_F(x) + E_G(x)
+\end{aligned}$
+
+\item $
+\begin{aligned}[t]
+C_{F\cdot G}(i)*\frac{x^i}{i!} 
+&= \sum\limits_{j=0}^i \frac{x^i}{i!} * \binom{i}{j}*C_F(j)*C_G(i-j)\\
+&= \sum\limits_{j=0}^i \frac{x^j}{j!}*C_F(j) * \frac{x^{i-j}}{(i-j)!}*C_G(i-j)
+\end{aligned}$
+\item $E_{F\cdot G}(x) = E_F(x) * E_G(x)$
+\item $E_F$ and $F$ share the same expression!
+\end{itemize}
+\end{frame}
+%%%% end [count] %%%%
+
+%%%% begin [deriv] %%%%
+\begin{frame}
+\frametitle{Derivative of Regular Species}
+
+\begin{itemize}
+\item $F': S \rightarrow F(S\cup\{\square\}) $
+\begin{itemize}
+\item e.g. $(X^2)': \{1\} \rightarrow X^2(\{1, \square\}) = \{(1,\square), (\square, 1)\}$
+\end{itemize}
+
+\item Derivative rules apply:
+\begin{itemize}
+\item $(F+G)'=F'+G'$
+\item $(F\cdot G)' = F'\cdot G + F \cdot G'$
+\item \dots
+\end{itemize}
+
+\item $(X^n)' = n * X^{n-1}$
+\item $E_{(X^n)'}(x) = n * x^{n-1} = (E_{X^n}(x))'$
+\item $E_{F'} = (E_F)'$
+\item Derivative preserves the consistency between regular species and its counting function!
+\end{itemize}
+\end{frame}
+%%%% end [deriv] %%%%
+
+%%%% begin [list] %%%%
+\begin{frame}
+\frametitle{List, Revisit}
+
+\begin{itemize}
+\item $L = 1 + X \cdot L$
+\item $E_L(x) = 1 + x \cdot E_L(x)$
+\item $E_L(x) = \frac{1}{1-x}$
+\item 
+\begin{onlyenv}<+>
+$L = \frac{1}{1 - X} = ?$
+\end{onlyenv}
+
+\item 
+\begin{onlyenv}<+>
+$L = \frac{1}{1 - X} = (\textbf{THE}\; F.\; E_F(x) = \frac{1}{1-x})$
+\end{onlyenv}
+
+\begin{itemize}
+\item $E_F = E_G \Longrightarrow F \simeq G$ 
+\end{itemize}
+\end{itemize}
+\end{frame}
+%%%% end [list] %%%%

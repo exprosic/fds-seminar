@@ -3,7 +3,8 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage{graphicx}
-\usepackage{ulem}
+\usepackage{soul}
+\usepackage{amsmath, amssymb}
 \usepackage{fancyvrb}
 \usepackage{color}
 \usepackage{listings}
@@ -18,11 +19,24 @@
 %\institute{Technische Universität München}
 \date{\today}
 
+\DeclareMathOperator{\Flist}{\textbf{list}}
+\DeclareMathOperator{\Fdlist}{\textbf{list\_context}}
+\DeclareMathOperator{\Ftree}{\textbf{tree}}
+\DeclareMathOperator{\Fdtree}{\textbf{tree\_context}}
+\DeclareMathOperator{\Fbtree}{\textbf{btree}}
+\DeclareMathOperator{\Fdbtree}{\textbf{btree\_context}}
+\DeclareMathOperator{\Fltree}{\textbf{ltree}}
+\DeclareMathOperator{\Fdltree}{\textbf{ltree\_context}}
+\DeclareMathOperator{\Pa}{\frac{\partial}{\partial a}}
+
 \begin{document}
 
 \frame{\titlepage}
 
+\include{section/intro}
 \include{section/zipper}
 \include{section/deriv}
 \include{section/species}
+\include{section/concl}
+\include{section/ac}
 \end{document}
