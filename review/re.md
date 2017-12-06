@@ -5,7 +5,7 @@
 - Formal definitions and proof scripts are indeed extremely convincing as argument, but might be less friendly as introduction. It might be helpful to instruct the reader to read the non-trivial ones if they were meant to be self-explanatory to some extent.
 - Before diving into the detail of the loop body in section 5, it might be helpful to first describe the intent and the overall structure of the while-loop.
 
-### Minor Corrections
+### Detailed Corrections
 
 - 3.2 `Deriv x A = {xs. x # xs ∈ A}`
   - Although the name `Deriv` emphasizes its correspondence with `deriv`, it may also cause confusion in contexts where an explicit type annotation of its parameter is not present.
