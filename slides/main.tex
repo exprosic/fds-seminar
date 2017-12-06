@@ -31,6 +31,16 @@
 
 \begin{document}
 
+\AtBeginSection[] {
+\begin{frame}{Outline}
+	\tableofcontents[ 
+		currentsubsection, 
+		sectionstyle=show/shaded, 
+		subsectionstyle=show/shaded, 
+	] 
+\end{frame}
+}
+
 \frame{\titlepage}
 
 \include{section/intro}

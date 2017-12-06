@@ -20,6 +20,9 @@ $\Big\{\big\{\{1\},\{2\},\{3\}\big\}, \big\{\{1\}, \{2,3\}\big\}, \cdots \Big\}$
 $\big\{\{1,2,3\}\big\}$
 \item species of pairs:
 $\{\}$
+\item species of triplets:
+$\big\{(1,2,3), (1,3,2), (2,3,1), \dots\big\}$
+\item \dots
 \end{itemize}
 
 \item Species, as functors, preserve identity arrow and composition of arrows
@@ -95,7 +98,7 @@ C_{F\cdot G}(i)*\frac{x^i}{i!}
 \end{itemize}
 
 \item $(X^n)' = n * X^{n-1}$
-\item $E_{(X^n)'}(x) = n * x^{n-1} = (E_{X^n}(x))'$
+\item $E_{(X^n)'}(x) = E_{n\cdot X^{n-1}}(x) = n * x^{n-1} = (x^n)' = (E_{X^n}(x))'$
 \item $E_{F'} = (E_F)'$
 \item Derivative preserves the consistency between regular species and its counting function!
 \end{itemize}

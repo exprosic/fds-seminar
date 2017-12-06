@@ -94,7 +94,7 @@ content
 \item Inside composed type $T(U(a))$, type $a$ occurs in one of $U$,
 which resides somewhere in $T$
 \begin{itemize}
-\item $C[a](T(U(a))) = C[U](T(U)) \times  C[a](U(a))$
+\item $C[a](T(U(a))) = C[b](T(b))|_{b=U(a)} \times  C[a](U(a))$
 \end{itemize}
 \end{itemize}
 
@@ -144,6 +144,8 @@ which resides somewhere in $T$
 \onslide<+->{&=\Pa 1 + (\Pa a \times \Flist(a) + a \times \Pa \Flist(a))\\}
 \onslide<+->{&=0 + 1 \times \Flist(a) + a \times \Pa \Flist(a)\\}
 \onslide<+->{&=\Flist(a) + a \times \Pa \Flist(a)\\}
+\onslide<+->{&=\Flist(a) + a \times (\Flist(a) + a \times \ldots) \\}
+\onslide<+->{&=\Flist(a) \times (1 + a \times (1 + a \times \ldots)) \\}
 \onslide<+->{\Pa \Flist(a) &= \Flist(a) \times \Flist(a)\\}
 \onslide<+->{&= \Fdlist(a)}
 \end{align*}
@@ -190,18 +192,18 @@ which resides somewhere in $T$
 &= \Pa(1 + a \times \Flist(\Ftree(a)))
 \\}
 \onslide<+->{
-&= \Pa(1) + \Pa(a \times \Flist(\Ftree(a)))
+&= \Pa 1 + \Pa(a \times \Flist(\Ftree(a)))
 \\}
 \onslide<+->{
-&= \Pa(1) + (\Pa(a) \times \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a))))
+&= \Pa 1 + (\Pa a \times \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a))))
 \\}
 \onslide<+->{
 &= \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a)))
 \\}
 \onslide<+->{
-&= \Flist(\Ftree(a)) + a \times (
+&= \Flist(\Ftree(a)) + a \times \Big(
 \frac{\partial}{\partial b}(\Flist(b))|_{b=\Ftree(a)}
-\times \Pa(\Ftree(a)))
+\times \Pa(\Ftree(a))\Big)
 \\}
 \onslide<+->{
 &= \Flist(\Ftree(a)) + a \times \Flist^2(\Ftree(a)) \times \Pa(\Ftree(a))
@@ -221,24 +223,29 @@ which resides somewhere in $T$
 \frametitle{Huet's Zipper, Revisit}
 
 \begin{itemize}
+\item $\Fltree(a) = a + \Flist(\Fltree)$
 \item Differentiating against non-basic type is a bit tricky
 \item $\frac{\partial}{\partial \Fltree}(\Fltree) = 1$?
+\item $\frac{\partial}{\partial \Fltree}(\Fltree) = \frac{\partial}{\partial \Fltree}(a + \Flist(\Fltree))$?
 \item A hack:
-\begin{eqnarray*}
+$\begin{aligned}[t]
 \frac{\partial}{\partial \Fltree}
-&=& \mathbf{((1))} + \frac{\partial}{\partial \Fltree}(
+&= \mathbf{((1))} + \frac{\partial}{\partial \Fltree}(
 a + \Flist(\Fltree))\\
-&=& \mathbf{1} + \frac{\partial}{\partial \Fltree}(\Flist(\Fltree))\\
-&=& \mathbf{1} + \Flist^2(\Fltree) \times \frac{\partial}{\partial \Fltree}(\Fltree) \\
-&=& \Fdltree
-\end{eqnarray*}
+&= \mathbf{1} + \frac{\partial}{\partial \Fltree}(\Flist(\Fltree))\\
+&= \mathbf{1} + \Flist^2(\Fltree) \times \frac{\partial}{\partial \Fltree}(\Fltree) \\
+&= \Fdltree
+\end{aligned}$
 \end{itemize}
 \end{frame}
 %%%% end [deriv ltree] %%%%
 
 %%%% begin [rev] %%%%
 \begin{frame}
-Reversed interpretation of the recursion path:
+\begin{itemize}
+\item $\Pa \Ftree(a) = \Flist(\Ftree(a)) \times \Flist(a \times \Flist^2(\Ftree(a)))$
+\item Reversed interpretation of the recursion path:
+\end{itemize}
 
 \bigskip
 

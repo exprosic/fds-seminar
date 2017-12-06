@@ -55,7 +55,7 @@
 
 \item \lstinline.reconstruct (xs, y, zs) = rev xs @ [y] @ zs.
 
-\item Equivalent type definition:
+\item Equivalent definition:
 \begin{itemize}
 	\item \lstinline.'a list_pointer = 'a * 'a list_context.
 	\item \lstinline.'a list_context = 'a list * 'a list.
@@ -97,7 +97,12 @@
 \end{lstlisting}
 
 \begin{itemize}
-	\item
+\item
+\begin{lstlisting}
+(<@\AX{2}, \AC{Leaf, Leaf}@>,
+ <@\AR{IsRight 1 Leaf} (\AL{IsLeft 0 (Node 3 Leaf Leaf)} \AT{Top})@>)
+\end{lstlisting}
+
 \begin{onlyenv}<+>
 \begin{lstlisting}
 (Node 0 (Node 1 Leaf
@@ -183,7 +188,7 @@
 
 \item \lstinline|down| and \lstinline|right| are defined similarly
 
-\item Equivalent type definition:\\
+\item Simpler definition:\\
 \begin{lstlisting}
 'a btree_pointer = <@\AX{'a}@> * 'a bree_context
 'a btree_context = <@\AC{'a btree * 'a btree}@>
@@ -227,7 +232,7 @@
 \end{itemize}
 
 \item 
-Equivalent type definition:\\
+Simpler definition:\\
 \begin{lstlisting}
 'a tree_context = 'a tree list
            * ('a tree list * 'a * 'a tree list) list
