@@ -3,7 +3,7 @@
 \begin{frame}[fragile]
 \frametitle{Context Examples Recap}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item
 \begin{lstlisting}
 'a list = unit + 'a * 'a list
@@ -24,11 +24,7 @@
            * ('a tree list * 'a * 'a tree list) list
 \end{lstlisting}
 
-\item Math-ly notation:
-\begin{itemize}
-\item $\Flist (a) = 1 + a \times \Flist (a)$
-\item $\dots$
-\end{itemize}
+\item Math-ly notation, e.g. $\Flist (a) = 1 + a \times \Flist (a)$
 
 \item Context for an arbitrary algebraic data type?
 \end{itemize}
@@ -37,7 +33,7 @@
 \begin{frame}[fragile]
 \frametitle{Context of Basic Types}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item Note the context of type $a$ inside type $T$ by $C[a](T)$
 \begin{itemize}
 \item e.g. $C[a](\Flist(a)) = \Fdlist(a) = \Flist(a) \times \Flist(a)$
@@ -139,13 +135,8 @@ which resides somewhere in $T$
 \begin{align*}
 \onslide<+->{\Pa \Flist(a)
 &=\Pa (1+a \times \Flist(a))\\}
-\onslide<+->{&=\Pa 1
-+ \Pa (a \times \Flist(a))\\}
-\onslide<+->{&=\Pa 1 + (\Pa a \times \Flist(a) + a \times \Pa \Flist(a))\\}
-\onslide<+->{&=0 + 1 \times \Flist(a) + a \times \Pa \Flist(a)\\}
+\onslide<+->{&=0 + \Pa (a \times \Flist(a))\\}
 \onslide<+->{&=\Flist(a) + a \times \Pa \Flist(a)\\}
-\onslide<+->{&=\Flist(a) + a \times (\Flist(a) + a \times \ldots) \\}
-\onslide<+->{&=\Flist(a) \times (1 + a \times (1 + a \times \ldots)) \\}
 \onslide<+->{\Pa \Flist(a) &= \Flist(a) \times \Flist(a)\\}
 \onslide<+->{&= \Fdlist(a)}
 \end{align*}
@@ -160,24 +151,16 @@ which resides somewhere in $T$
 \onslide<+->{\Pa \Fbtree(a)
 &= \Pa (1 + a \times \Fbtree^2(a)) \\}
 \onslide<+->{
-&=\Pa 1
+&=0
 + \Pa (a \times \Fbtree^2(a)) \\}
 \onslide<+->{
-&=\Pa 1
-+ (\Pa a \times \Fbtree^2(a)
-+ a \times \Pa \Fbtree^2(a)) \\}
+&=\Fbtree^2(a)
++ a \times \Pa \Fbtree^2(a) \\}
 \onslide<+->{
-&=\Pa 1
-+ (\Pa a \times \Fbtree^2(a)
-+ a \times 2 \times \Pa \Fbtree(a)) \\}
-\onslide<+->{
-&=0
-+ (1 \times \Fbtree^2(a)
-+ a \times 2 \times \Pa \Fbtree(a)) \\}
-\onslide<+->{
-&= \Fbtree^2(a) + 2 \times a \times \Pa \Fbtree(a) \\}
+&=\Fbtree^2(a)
++ a \times 2 \times \Fbtree(a) \times \Pa \Fbtree(a) \\}
 \onslide<+->{\Pa \Fbtree(a)
-&= \Fbtree^2(a) \times \Flist (2 \times a) \\}
+&= \Fbtree^2(a) \times \Flist (2 \times a \times \Fbtree(a)) \\}
 \onslide<+->{
 &= \Fdbtree(a)}
 \end{align*}
@@ -192,18 +175,10 @@ which resides somewhere in $T$
 &= \Pa(1 + a \times \Flist(\Ftree(a)))
 \\}
 \onslide<+->{
-&= \Pa 1 + \Pa(a \times \Flist(\Ftree(a)))
+&= 0 + \Pa(a \times \Flist(\Ftree(a)))
 \\}
 \onslide<+->{
-&= \Pa 1 + (\Pa a \times \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a))))
-\\}
-\onslide<+->{
-&= \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a)))
-\\}
-\onslide<+->{
-&= \Flist(\Ftree(a)) + a \times \Big(
-\frac{\partial}{\partial b}(\Flist(b))|_{b=\Ftree(a)}
-\times \Pa(\Ftree(a))\Big)
+&=  \Flist(\Ftree(a)) + a \times \Pa(\Flist(\Ftree(a)))
 \\}
 \onslide<+->{
 &= \Flist(\Ftree(a)) + a \times \Flist^2(\Ftree(a)) \times \Pa(\Ftree(a))
@@ -223,7 +198,7 @@ which resides somewhere in $T$
 \frametitle{Huet's Zipper, Revisit}
 
 \begin{itemize}
-\item $\Fltree(a) = a + \Flist(\Fltree)$
+\item $\Fltree(a) = a + \Flist(\Fltree(a))$
 \item Differentiating against non-basic type is a bit tricky
 \item $\frac{\partial}{\partial \Fltree}(\Fltree) = 1$?
 \item $\frac{\partial}{\partial \Fltree}(\Fltree) = \frac{\partial}{\partial \Fltree}(a + \Flist(\Fltree))$?
@@ -267,7 +242,7 @@ a + \Flist(\Fltree))\\
 \begin{frame}
 \frametitle{Subtraction and Division?}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item $\Flist(a) = 1 + a \times \Flist(a)$
 \item $\Flist(a) \leftrightarrow \frac{1}{1-a}$?
 \item $\Pa\Flist(a) \leftrightarrow \Pa(\frac{1}{1-a})

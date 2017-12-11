@@ -1,24 +1,29 @@
 \section{Zipper Examples}
 
 %%%% begin [list] %%%%
-\begin{frame}[fragile, allowframebreaks]
-\frametitle{Context for List}
+\begin{frame}[fragile]
+\frametitle{Context for List I}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item \lstinline.datatype 'a list = Nil | Cons 'a ('a list).
-
+\item Suppose we are implementing a functional text editor
 \item How to define a ``pointer'' \lstinline|p| into a list \lstinline|l|, supporting:
 \begin{itemize}
 	\item \lstinline|p = begin(l)|
-	\item \lstinline|p->prev|
-	\item \lstinline|p->next|
+	\item \lstinline|prev(p)|
+	\item \lstinline|next(p)|
 	\item \lstinline|*p := a|
 \end{itemize}
 \end{itemize}
 
-\framebreak
+\end{frame}
 
-\begin{itemize}
+%%%% [list] frame break
+
+\begin{frame}[fragile]
+\frametitle{Context for List II}
+
+\begin{itemize}[<+->]
 \newcommand{\AL}[1]{\textcolor{red}{#1}}
 \newcommand{\AM}[1]{\textcolor[RGB]{0,170,0}{#1}}
 \newcommand{\AR}[1]{\textcolor{blue}{#1}}
@@ -74,7 +79,7 @@
 \newcommand{\AR}[1]{\textcolor{cyan}{#1}}
 \newcommand{\AT}[1]{\textcolor{gray}{#1}}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item \lstinline.'a btree = Leaf | Node 'a ('a btree) ('a btree).
 
 \item
@@ -169,7 +174,7 @@
 \newcommand{\AR}[1]{\textcolor{cyan}{#1}}
 \newcommand{\AT}[1]{\textcolor{gray}{#1}}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item \lstinline|up, down, left, right| for \lstinline|btree_pointer|:
 
 \item
@@ -199,10 +204,10 @@
 %%%% end [btree 2] %%%%
 
 %%%% begin [tree] %%%%
-\begin{frame}[fragile, allowframebreaks]
+\begin{frame}[fragile]
 \frametitle{Context for Ordered Tree}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item
 \begin{lstlisting}
 'a tree = Leaf | Node 'a ('a tree list)
@@ -226,10 +231,7 @@
             ('a tree_ancestors)
 \end{lstlisting}
 
-\item \lstinline|up, down left, right| for \lstinline|tree_pointer|
-\begin{itemize}
-\item  similar with the ones for \lstinline|btree_pointer|
-\end{itemize}
+\item \lstinline|up, down left, right| here are similar as for \lstinline|btree_pointer|
 
 \item 
 Simpler definition:\\
@@ -239,7 +241,11 @@ Simpler definition:\\
 \end{lstlisting}
 \end{itemize}
 
-\framebreak
+\end{frame}
+
+%%% [tree] break
+
+\begin{frame}[fragile]
 
 Zipper!\footnote[frame]{Image source: www.pacifictrimming.com}
 
@@ -262,12 +268,12 @@ Zipper!\footnote[frame]{Image source: www.pacifictrimming.com}
 
 %%%% begin [tree] %%%%
 \begin{frame}[fragile]
-\frametitle{Huet's Zipper}
+\frametitle{Huet's Zipper [1]}
 
 \newcommand{\AS}[1]{\textcolor{red}{#1}}
 \newcommand{\AL}[1]{\textcolor{blue}{#1}}
 
-\begin{itemize}
+\begin{itemize}[<+->]
 \item For ordered trees with \AL{payload only on leaves}:
 
 \begin{itemize}
